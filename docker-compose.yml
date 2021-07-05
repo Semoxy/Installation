@@ -39,6 +39,7 @@ services:
       - mongo_address
     ports:
       - "25500-25600:25500-25600"
+    hostname: server.semoxy
 volumes:
   semoxy-data:
     name: semoxy-data
