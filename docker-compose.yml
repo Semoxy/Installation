@@ -1,0 +1,57 @@
+version: "3.9"
+services:
+  mongo:
+    image: mongo
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME_FILE=/run/secrets/mongo_user
+      - MONGO_INITDB_ROOT_PASSWORD_FILE=/run/secrets/mongo_password
+      - MONGO_INITDB_DATABASE=semoxy
+    volumes:
+      - semoxy-data:/data/db
+    secrets:
+      - mongo_password
+      - mongo_user
+    ports:
+      - "5002:27017"
+    hostname: mongo.semoxy
+  client:
+    image: semoxy/client
+    environment:
+      - BACKEND_ADDRESS=server.semoxy
+    ports:
+      - "80:80"
+    depends_on:
+      - server
+  server:
+    image: semoxy/server
+    environment:
+      - BACKEND_HOST=0.0.0.0
+      - BACKEND_PORT=5001
+    volumes:
+      - semoxy-servers:/servers
+    depends_on:
+      - mongo
+    secrets:
+      - mongo_root_password
+      - mongo_root_user
+      - config
+      - pepper
+      - mongo_address
+    ports:
+      - "25500-25600:25500-25600"
+volumes:
+  semoxy-data:
+    name: semoxy-data
+  semoxy-servers:
+    name: semoxy-servers
+secrets:
+  mongo_password:
+    file: "./secrets/mongo_pw.txt"
+  mongo_user:
+    file: "./secrets/mongo_user.txt"
+  config:
+    file: "./config.json"
+  pepper:
+    file: "./secrets/pepper.txt"
+  mongo_address:
+    file: "./secrets/mongo_addr.txt"
