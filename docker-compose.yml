@@ -32,8 +32,8 @@ services:
     depends_on:
       - mongo
     secrets:
-      - mongo_root_password
-      - mongo_root_user
+      - mongo_password
+      - mongo_user
       - config
       - pepper
       - mongo_address
