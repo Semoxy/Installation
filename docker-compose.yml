@@ -17,7 +17,7 @@ services:
   client:
     image: semoxy/client
     environment:
-      - BACKEND_ADDRESS=server.semoxy
+      - BACKEND_ADDRESS=server.semoxy:5001
     ports:
       - "80:80"
     depends_on:
