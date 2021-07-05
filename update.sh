@@ -7,7 +7,7 @@ if [ "$?" -eq "0" ]
 then
   echo "Server is up to date!"
 else
-  sudo docker build --tag semoxy/server ./Server
+  sudo docker build --tag semoxy/server .
 fi
 
 cd ../WebClient || exit
@@ -17,7 +17,7 @@ if [ "$?" -eq "0" ]
 then
   echo "WebClient is up to date!"
 else
-  sudo docker build --tag semoxy/client ./WebClient
+  sudo docker build --tag semoxy/client .
 fi
 
 cd ..
