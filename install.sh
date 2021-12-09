@@ -6,7 +6,7 @@ sudo -v
 git clone https://github.com/SemoxyMC/WebClient.git
 git clone https://github.com/SemoxyMC/Server.git
 
-mv Server/defaultConfig.json ./config.json
+mv Server/config.template.json ./config.json
 
 sudo docker build --tag semoxy/mongo ./mongo
 sudo docker build --tag semoxy/server ./Server
